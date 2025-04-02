@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/scheduleFragment">
+
+    <fragment
+        android:id="@+id/scheduleFragment"
+        android:name="com.example.schooldiary.view.ScheduleFragment"
+        android:label="Schedule"
+        tools:layout="@layout/fragment_schedule" />
+    
+    <fragment
+        android:id="@+id/dayScheduleFragment"
+        android:name="com.example.schooldiary.view.DayScheduleFragment"
+        android:label="Day Schedule"
+        tools:layout="@layout/fragment_day_schedule" />
+
+    <fragment
+        android:id="@+id/addSubjectFragment"
+        android:name="com.example.schooldiary.view.AddSubjectFragment"
+        android:label="Add Subject"
+        tools:layout="@layout/fragment_add_subject" />
+</navigation>
