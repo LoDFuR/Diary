@@ -1,27 +1,9 @@
 package com.example.schooldiary.ui
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.example.schooldiary.databinding.FragmentLessonListBinding
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 
-class LessonListFragment : Fragment() {
-
-    private var _binding: FragmentLessonListBinding? = null
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentLessonListBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+@Composable
+fun LessonListFragment() {
+    Text(text = "Here is the list of lessons")
 }

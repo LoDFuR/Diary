@@ -14,7 +14,7 @@ import com.example.schooldiary.extensions.collectAsState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LessonListScreen(viewModel: LessonViewModel, navController: NavController) {
+fun LessonListScreen(navController: NavController, viewModel: LessonViewModel) {
     // Получение списка уроков из ViewModel
     val lessons by viewModel.lessons.collectAsState(initial = emptyList())
 

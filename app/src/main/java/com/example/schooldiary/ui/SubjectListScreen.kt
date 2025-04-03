@@ -16,7 +16,7 @@ import com.example.schooldiary.extensions.collectAsState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SubjectListScreen(viewModel: SubjectViewModel, navController: NavController) {
+fun SubjectListScreen(navController: NavController, viewModel: SubjectViewModel) {
     // Получение списка предметов из ViewModel
     val subjects by viewModel.subjects.collectAsState(initial = emptyList())
 
@@ -31,7 +31,7 @@ fun SubjectListScreen(viewModel: SubjectViewModel, navController: NavController)
             TopAppBar(
                 title = { Text("Subject List") },
                 actions = {
-                    IconButton(onClick = { navController.navigate("lesson_list_screen") }) {
+                    IconButton(onClick = { navController.navigate("lessons") }) {
                         Icon(imageVector = Icons.Default.ArrowForward, contentDescription = "Go to Lesson List")
                     }
                 }
