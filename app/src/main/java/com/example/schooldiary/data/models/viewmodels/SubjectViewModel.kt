@@ -10,15 +10,38 @@ import com.example.schooldiary.data.models.Subject
 //import com.example.schooldiary.model.Subject
 //import com.example.schooldiary.repository.SubjectRepository
 import kotlinx.coroutines.launch
+import androidx.lifecycle.*
+//import com.example.diary.model.Subject
+//import com.example.diary.repository.SubjectRepository
+import kotlinx.coroutines.launch
 
 class SubjectViewModel(private val repository: SubjectRepository) : ViewModel() {
 
     private val _subjects = MutableLiveData<List<Subject>>()
     val subjects: LiveData<List<Subject>> get() = _subjects
 
+    init {
+        loadAllSubjects()
+    }
+
     fun insert(subject: Subject) {
         viewModelScope.launch {
             repository.insert(subject)
+            loadAllSubjects()
+        }
+    }
+
+    fun update(subject: Subject) {
+        viewModelScope.launch {
+            repository.update(subject)
+            loadAllSubjects()
+        }
+    }
+
+    fun delete(subject: Subject) {
+        viewModelScope.launch {
+            repository.delete(subject)
+            loadAllSubjects()
         }
     }
 
@@ -26,5 +49,14 @@ class SubjectViewModel(private val repository: SubjectRepository) : ViewModel() 
         viewModelScope.launch {
             _subjects.value = repository.getAllSubjects()
         }
+    }
+
+    fun getAverageGrade(subjectId: Int): LiveData<Double> {
+        val averageGrade = MutableLiveData<Double>()
+        viewModelScope.launch {
+            val subjects = repository.getSubjectById(subjectId)
+            averageGrade.value = subjects?.averageGrade ?: 0.0
+        }
+        return averageGrade
     }
 }

@@ -16,4 +16,14 @@ class SubjectRepository(private val subjectDao: SubjectDao) {
     suspend fun getAllSubjects(): List<Subject> {
         return subjectDao.getAllSubjects()
     }
+    suspend fun update(subject: Subject) {
+        subjectDao.update(subject)
+    }
+
+    suspend fun delete(subject: Subject) {
+        subjectDao.delete(subject)
+    }
+    suspend fun getSubjectById(id: Int): Subject? {
+        return subjectDao.getSubjectById(id)
+    }
 }

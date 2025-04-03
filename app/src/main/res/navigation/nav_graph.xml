@@ -2,23 +2,31 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/scheduleFragment">
+    app:startDestination="@id/greetingFragment">
 
     <fragment
-        android:id="@+id/scheduleFragment"
-        android:name="com.example.schooldiary.view.ScheduleFragment"
-        android:label="Schedule"
-        tools:layout="@layout/fragment_schedule" />
-    
-    <fragment
-        android:id="@+id/dayScheduleFragment"
-        android:name="com.example.schooldiary.view.DayScheduleFragment"
-        android:label="Day Schedule"
-        tools:layout="@layout/fragment_day_schedule" />
+        android:id="@+id/greetingFragment"
+        android:name="com.example.schooldiary.ui.GreetingFragment"
+        android:label="Greeting"
+        tools:layout="@layout/fragment_greeting">
+        <action
+            android:id="@+id/action_greetingFragment_to_subjectListFragment"
+            app:destination="@id/subjectListFragment" />
+    </fragment>
 
     <fragment
-        android:id="@+id/addSubjectFragment"
-        android:name="com.example.schooldiary.view.AddSubjectFragment"
-        android:label="Add Subject"
-        tools:layout="@layout/fragment_add_subject" />
+        android:id="@+id/subjectListFragment"
+        android:name="com.example.schooldiary.ui.SubjectListFragment"
+        android:label="Subject List"
+        tools:layout="@layout/fragment_subject_list">
+        <action
+            android:id="@+id/action_subjectListFragment_to_lessonListFragment"
+            app:destination="@id/lessonListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/lessonListFragment"
+        android:name="com.example.schooldiary.ui.LessonListFragment"
+        android:label="Lesson List"
+        tools:layout="@layout/fragment_lesson_list" />
 </navigation>

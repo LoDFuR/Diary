@@ -1,20 +1,15 @@
 package com.example.schooldiary.data.database
-
 import androidx.room.Database
-//import androidx.room.Room
-//import androidx.room.RoomDatabase
-import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import android.content.Context
 import com.example.schooldiary.data.models.Lesson
 import com.example.schooldiary.data.models.Subject
-
-//import com.example.schedule.data.models.Lesson
-//import com.example.schedule.data.models.Subject
 
 @Database(entities = [Subject::class, Lesson::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun subjectDao(): SubjectDao
+    abstract fun lessonDao(): LessonDao
 
     companion object {
         @Volatile

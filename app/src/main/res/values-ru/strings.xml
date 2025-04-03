@@ -1,4 +1,10 @@
 <resources>
-    <string name="app_name">ДневникШкольника</string>
-    <!-- Add more strings here for the Russian language -->
+    <string name="app_name">Школьный Дневник</string>
+    <string name="add_subject">Добавить Предмет</string>
+    <string name="update_subject">Обновить Предмет</string>
+    <string name="delete_subject">Удалить Предмет</string>
+    <string name="average_grade">Средний Балл</string>
+    <string name="add_lesson">Добавить Урок</string>
+    <string name="update_lesson">Обновить Урок</string>
+    <string name="delete_lesson">Удалить Урок</string>
 </resources>
