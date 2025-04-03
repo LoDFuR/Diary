@@ -7,18 +7,18 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.schooldiary.data.models.Subject
 import com.example.schooldiary.data.models.viewmodels.SubjectViewModel
-import com.example.schooldiary.extensions.collectAsState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SubjectListScreen(navController: NavController, viewModel: SubjectViewModel) {
     // Получение списка предметов из ViewModel
-    val subjects by viewModel.subjects.collectAsState(initial = emptyList())
+    val subjects by viewModel.subjects.observeAsState(emptyList())
 
     // Загрузка всех предметов при запуске экрана
     LaunchedEffect(Unit) {

@@ -5,18 +5,18 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.schooldiary.data.models.Lesson
 import com.example.schooldiary.data.models.viewmodels.LessonViewModel
-import com.example.schooldiary.extensions.collectAsState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LessonListScreen(navController: NavController, viewModel: LessonViewModel) {
     // Получение списка уроков из ViewModel
-    val lessons by viewModel.lessons.collectAsState(initial = emptyList())
+    val lessons by viewModel.lessons.observeAsState(emptyList())
 
     // Загрузка всех уроков при запуске экрана
     LaunchedEffect(Unit) {
