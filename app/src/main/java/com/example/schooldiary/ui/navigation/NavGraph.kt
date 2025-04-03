@@ -13,8 +13,8 @@ import com.example.schooldiary.ui.SubjectListFragment
 fun NavGraph(navController: NavHostController) {
     NavHost(navController = navController, startDestination = "home") {
         composable("home") { HomeScreen(navController) }
-        composable("greeting") { GreetingFragment() }
+        composable("greeting") { GreetingFragment(navController) }
         composable("subjects") { SubjectListFragment() }
-        composable("lessons") { LessonListFragment() }
+        composable("lessons") { LessonListFragment(navController) }
     }
 }
