@@ -13,7 +13,7 @@ fun NavGraph(navController: NavHostController) {
         startDestination = Screen.Main.route
     ) {
         composable(route = Screen.Main.route) {
-            MainFragmentScreen(navController = navController)
+            MainFragment(navController = navController)
         }
         composable(route = Screen.AddSubject.route) {
             AddSubjectScreen(navController = navController)
