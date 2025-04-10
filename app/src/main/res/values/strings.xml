@@ -1,10 +1,6 @@
 <resources>
-    <string name="app_name">School Diary</string>
-    <string name="add_subject">Add Subject</string>
-    <string name="update_subject">Update Subject</string>
-    <string name="delete_subject">Delete Subject</string>
-    <string name="average_grade">Average Grade</string>
-    <string name="add_lesson">Add Lesson</string>
-    <string name="update_lesson">Update Lesson</string>
-    <string name="delete_lesson">Delete Lesson</string>
+     <string name="app_name">School Diary</string>
+     <string name="school_diary_title">School Diary</string>
+     <string name="subject_name_hint">Enter subject name</string>
+     <string name="add_subject">Add Subject</string>
 </resources>

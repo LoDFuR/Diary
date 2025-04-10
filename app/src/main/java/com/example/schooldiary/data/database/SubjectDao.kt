@@ -4,7 +4,6 @@ package com.example.schooldiary.data.database
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.schooldiary.data.models.Subject
 import androidx.room.*
 //import com.example.schedule.data.models.Subject
 

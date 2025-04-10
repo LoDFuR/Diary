@@ -1,7 +1,6 @@
 package com.example.schooldiary.data.database
 
 import androidx.room.*
-import com.example.schooldiary.data.models.Lesson
 
 @Dao
 interface LessonDao {

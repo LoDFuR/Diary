@@ -1,27 +1,31 @@
 package com.example.schooldiary.data.models.viewmodels
 
+import com.example.schooldiary.data.database.AppDatabase
+import com.example.schooldiary.data.database.Subject
+
+//package com.example.schooldiary.viewmodel
+
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.schooldiary.data.models.Subject
-import com.example.schooldiary.repository.SubjectRepository
+//import com.example.schooldiary.data.AppDatabase
+//import com.example.schooldiary.data.Subject
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val repository: SubjectRepository) : ViewModel() {
+class MainViewModel(application: Application) : ViewModel() {
 
-    private val _subjects = MutableLiveData<List<Subject>>()
-    val subjects: LiveData<List<Subject>> get() = _subjects
+    private val dao = AppDatabase.getDatabase(application).schoolDao()
 
-    fun insert(subject: Subject) {
+    private val _subjectsLiveData = MutableLiveData<List<Subject>>()
+    val subjectsLiveData: LiveData<List<Subject>> get() = _subjectsLiveData
+
+    fun loadSubjects() {
         viewModelScope.launch {
-            repository.insert(subject)
+            _subjectsLiveData.postValue(dao.getAllSubjects())
         }
     }
 
-    fun loadAllSubjects() {
-        viewModelScope.launch {
-            _subjects.value = repository.getAllSubjects()
-        }
-    }
+    // Другие методы для работы с уроками и оценками...
 }

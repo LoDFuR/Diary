@@ -1,10 +1,6 @@
 <resources>
-    <string name="app_name">Школьный Дневник</string>
-    <string name="add_subject">Добавить Предмет</string>
-    <string name="update_subject">Обновить Предмет</string>
-    <string name="delete_subject">Удалить Предмет</string>
-    <string name="average_grade">Средний Балл</string>
-    <string name="add_lesson">Добавить Урок</string>
-    <string name="update_lesson">Обновить Урок</string>
-    <string name="delete_lesson">Удалить Урок</string>
+     <string name="app_name">Дневник школьника</string>
+     <string name="school_diary_title">Дневник школьника</string>
+     <string name="subject_name_hint">Введите название предмета</string>
+     <string name="add_subject">Добавить предмет</string>
 </resources>
