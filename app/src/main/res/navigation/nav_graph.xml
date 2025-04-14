@@ -1,16 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/weeklyScheduleFragment">
 
-    <fragment 
-        android:id="@+id/mainFragment" 
-        android:name="com.example.schooldiary.ui.MainFragment">
-        
-        <action 
-            android:id="@+id/action_mainFragment_to_addSubjectFragment" 
-            app:destination="@id/addSubjectFragment"/>
+    <fragment
+        android:id="@+id/weeklyScheduleFragment"
+        android:name="com.example.schooldiary.ui.WeeklyScheduleFragment"
+        android:label="Weekly Schedule">
+        <action
+            android:id="@+id/action_to_daily"
+            app:destination="@id/dailyDetailsFragment" />
+        <action
+            android:id="@+id/action_to_help"
+            app:destination="@id/helpFragment" />
+        <action
+            android:id="@+id/action_to_subjects"
+            app:destination="@id/subjectsFragment" />
     </fragment>
 
-    <fragment 
-        android:id="@+id/addSubjectFragment" 
-        android:name="com.example.schooldiary.ui.AddSubjectFragment"/>
+    <fragment
+        android:id="@+id/dailyDetailsFragment"
+        android:name="com.example.schooldiary.ui.DailyDetailsFragment"
+        android:label="Daily Details" />
+
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="com.example.schooldiary.ui.HelpFragment"
+        android:label="Help" />
+
+    <fragment
+        android:id="@+id/subjectsFragment"
+        android:name="com.example.schooldiary.ui.SubjectsFragment"
+        android:label="Subjects and Grades" />
 </navigation>

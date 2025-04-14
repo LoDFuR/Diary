@@ -1,6 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-     <string name="app_name">School Diary</string>
-     <string name="school_diary_title">School Diary</string>
-     <string name="subject_name_hint">Enter subject name</string>
-     <string name="add_subject">Add Subject</string>
+    <string name="app_name">SchoolDiary</string>
+    <string name="weekly_schedule">Weekly Schedule</string>
+    <string name="add_subject">Add Subject</string>
+    <string name="daily_details">Add Lesson</string>
+    <string name="average_grade">Average: %.2f</string>
+    <string name="help_text">Help information goes here</string>
+    <string name="subject_name_hint">Enter subject name</string>
+    <string name="homework_hint">Enter homework</string>
+    <string name="grade_hint">Enter grade (0-5)</string>
+    <string name="help_title">Help</string>
+    <string name="help_content">This is the help section for the School Diary app. Use it to manage your schedule, add subjects, and track lessons.</string>
+    <string name="go_to_schedule">Schedule</string>
+    <string name="help">Help?</string>
+    <string name="view_subjects">View Subjects</string>
+    <string name="day_name">Day Name</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
 </resources>
