@@ -6,14 +6,49 @@
     android:padding="8dp">
 
     <TextView
+        android:id="@+id/subjectText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:paddingBottom="4dp"
+        android:ellipsize="none"
+        android:singleLine="false" />
+
+    <TextView
         android:id="@+id/homeworkText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Homework" />
+        android:textSize="16sp"
+        android:paddingBottom="4dp"
+        android:ellipsize="none"
+        android:singleLine="false" />
 
     <TextView
         android:id="@+id/gradeText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Grade" />
+        android:textSize="16sp"
+        android:paddingBottom="4dp"
+        android:ellipsize="none"
+        android:singleLine="false" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/editLessonButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/modify_b" />
+
+        <Button
+            android:id="@+id/deleteLessonButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/delete" />
+    </LinearLayout>
 </LinearLayout>

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:ignore="ExtraText">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -19,18 +21,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add_subject"
-        app:layout_constraintBottom_toTopOf="@id/viewSubjectsButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/helpButton" />
+<!--        app:layout_constraintEnd_toStartOf="@+id/helpButton" />-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/recyclerView" />-->
+<!--            tools:ignore="MissingConstraints" />-->
+<!--        app:layout_constraintBottom_toTopOf="@id/viewSubjectsButton"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
 
-    <Button
-        android:id="@+id/viewSubjectsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/view_subjects"
-        app:layout_constraintBottom_toTopOf="@id/helpButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+<!--    <Button-->
+<!--        android:id="@+id/viewSubjectsButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/view_subjects"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/helpButton"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
 
     <Button
         android:id="@+id/helpButton"

@@ -37,4 +37,30 @@ class SubjectsViewModel(
             _subjectsWithGrades.value = subjectsWithGrades
         }
     }
+
+    suspend fun updateSubject(subject: Subject) {
+        subjectDao.update(subject)
+        loadSubjectsWithGrades()
+    }
+
+    suspend fun deleteSubject(subject: Subject) {
+        subjectDao.delete(subject)
+        loadSubjectsWithGrades()
+    }
+
+    suspend fun addGrade(subjectId: Long, value: Int, date: String) {
+        val grade = Grade(subjectId = subjectId, value = value, date = date)
+        gradeDao.insertGrade(grade)
+        loadSubjectsWithGrades()
+    }
+
+    suspend fun updateGrade(grade: Grade) {
+        gradeDao.updateGrade(grade)
+        loadSubjectsWithGrades()
+    }
+
+    suspend fun deleteGrade(grade: Grade) {
+        gradeDao.deleteGrade(grade)
+        loadSubjectsWithGrades()
+    }
 }

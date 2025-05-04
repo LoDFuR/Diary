@@ -14,7 +14,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.schooldiary.R
 import com.example.schooldiary.SchoolDiaryApplication
+import com.example.schooldiary.data.database.Subject
 import com.example.schooldiary.databinding.FragmentWeeklyScheduleBinding
+import com.example.schooldiary.ui.adapters.DayItem
+import com.example.schooldiary.ui.adapters.WeekScheduleAdapter
 import com.example.schooldiary.viewmodel.ScheduleViewModel
 import com.example.schooldiary.viewmodel.ScheduleViewModelFactory
 import kotlinx.coroutines.launch
@@ -65,6 +68,19 @@ class WeeklyScheduleFragment : Fragment() {
         )
         adapter.submitList(days)
 
+        viewModel.subjects.observe(viewLifecycleOwner) { subjects ->
+            adapter.updateSubjects(subjects ?: emptyList())
+        }
+
+        adapter.onEditSubject = { subject ->
+            showEditSubjectDialog(subject)
+        }
+        adapter.onDeleteSubject = { subject ->
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.deleteSubject(subject)
+            }
+        }
+
         binding.addSubjectButton.setOnClickListener {
             showAddSubjectDialog()
         }
@@ -73,9 +89,6 @@ class WeeklyScheduleFragment : Fragment() {
             findNavController().navigate(R.id.action_to_help)
         }
 
-        binding.viewSubjectsButton.setOnClickListener {
-            findNavController().navigate(R.id.action_to_subjects)
-        }
 
         viewModel.loadSchedule(currentQuarter)
     }
@@ -92,6 +105,26 @@ class WeeklyScheduleFragment : Fragment() {
                 if (name.isNotEmpty()) {
                     viewLifecycleOwner.lifecycleScope.launch {
                         viewModel.addSubject(name, currentQuarter)
+                    }
+                }
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
+
+    private fun showEditSubjectDialog(subject: Subject) {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_add_subject, null)
+        val editText = dialogView.findViewById<EditText>(R.id.subjectNameEditText)
+        editText.setText(subject.name)
+
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.mod_sub))
+            .setView(dialogView)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                val name = editText.text.toString()
+                if (name.isNotEmpty()) {
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        viewModel.updateSubject(subject.copy(name = name))
                     }
                 }
             }

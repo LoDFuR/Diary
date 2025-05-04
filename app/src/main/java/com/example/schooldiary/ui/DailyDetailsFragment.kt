@@ -6,30 +6,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.schooldiary.R
 import com.example.schooldiary.SchoolDiaryApplication
-import com.example.schooldiary.databinding.FragmentDayScheduleBinding
+import com.example.schooldiary.data.database.Lesson
+import com.example.schooldiary.databinding.FragmentDailyDetailsBinding
 import com.example.schooldiary.viewmodel.ScheduleViewModel
 import com.example.schooldiary.viewmodel.ScheduleViewModelFactory
 import kotlinx.coroutines.launch
 
 class DailyDetailsFragment : Fragment() {
-    private var _binding: FragmentDayScheduleBinding? = null
+    private var _binding: FragmentDailyDetailsBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: ScheduleViewModel
-    private val dayOfWeek by lazy { arguments?.getInt("dayOfWeek") ?: 1 }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDayScheduleBinding.inflate(inflater, container, false)
+        _binding = FragmentDailyDetailsBinding.inflate(inflater, container, false)
         val appDatabase = (requireContext().applicationContext as SchoolDiaryApplication).database
         viewModel = ViewModelProvider(
             this,
@@ -41,68 +41,130 @@ class DailyDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val lessonAdapter = LessonAdapter()
-        binding.lessonList.apply {
+        val dayOfWeek = arguments?.getInt("dayOfWeek") ?: 1
+        val appDatabase = (requireContext().applicationContext as SchoolDiaryApplication).database
+        val adapter = LessonAdapter(
+            subjectDao = appDatabase.subjectDao(),
+            onEditLesson = { lesson -> showEditLessonDialog(lesson) },
+            onDeleteLesson = { lesson ->
+                viewLifecycleOwner.lifecycleScope.launch {
+                    try {
+                        viewModel.deleteLesson(lesson)
+                    } catch (e: Exception) {
+                        Toast.makeText(
+                            context,
+                            "Ошибка удаления урока: ${e.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        )
+        binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = lessonAdapter
+            this.adapter = adapter
         }
 
         viewModel.dailyLessons.observe(viewLifecycleOwner) { lessons ->
-            lessonAdapter.submitList(lessons)
-            val avg = lessons.firstOrNull()?.let { viewModel.calculateAverageGrade(it.subjectId) } ?: 0f
-            binding.averageGradeText.text = String.format(getString(R.string.average_grade), avg)
+            adapter.submitList(lessons)
+            binding.emptyText.visibility = if (lessons.isEmpty()) View.VISIBLE else View.GONE
+        }
+
+        viewModel.subjectsWithGrades.observe(viewLifecycleOwner) { subjectsWithGrades ->
+            val text = if (subjectsWithGrades.isEmpty()) {
+                getString(R.string.avg_gr)
+            } else {
+                subjectsWithGrades.joinToString("\n") {
+                    "${it.subject.name} (ID: ${it.subject.id}): ${if (it.averageGrade == 0f) getString(R.string.no_grade) else String.format("%.2f", it.averageGrade)}"
+                }
+            }
+            binding.averageGradesText.text = getString(R.string.avg_gr_is) + ":\n$text"
         }
 
         binding.addLessonButton.setOnClickListener {
-            showAddLessonDialog()
-        }
-
-        binding.addSubjectButton.setOnClickListener {
-            showAddSubjectDialog()
-        }
-
-        binding.helpButton.setOnClickListener {
-            findNavController().navigate(R.id.action_to_help)
+            showAddLessonDialog(dayOfWeek)
         }
 
         viewModel.loadDayLessons(dayOfWeek)
-        viewModel.loadSchedule(1) // Загружаем предметы для текущей четверти
+        viewModel.loadSubjectsWithAverageGrades()
     }
 
-    private fun showAddLessonDialog() {
+    private fun showAddLessonDialog(dayOfWeek: Int) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_add_lesson, null)
-        val homeworkEdit = dialogView.findViewById<EditText>(R.id.homeworkEditText)
-        val gradeEdit = dialogView.findViewById<EditText>(R.id.gradeEditText)
-        val subjectIdEdit = dialogView.findViewById<EditText>(R.id.subjectIdEditText)
+        val subjectIdEditText = dialogView.findViewById<EditText>(R.id.subjectIdEditText)
+        val homeworkEditText = dialogView.findViewById<EditText>(R.id.homeworkEditText)
+        val gradeEditText = dialogView.findViewById<EditText>(R.id.gradeEditText)
 
         AlertDialog.Builder(requireContext())
-            .setTitle(R.string.daily_details)
+            .setTitle(getString(R.string.add_subject))
             .setView(dialogView)
             .setPositiveButton(android.R.string.ok) { _, _ ->
-                val homework = homeworkEdit.text.toString().ifEmpty { null }
-                val grade = gradeEdit.text.toString().toIntOrNull()?.coerceIn(0, 5)
-                val subjectId = subjectIdEdit.text.toString().toIntOrNull() ?: return@setPositiveButton
-                lifecycleScope.launch {
-                    viewModel.addLesson(subjectId.toLong(), dayOfWeek, homework, grade)
+                val subjectId = subjectIdEditText.text.toString().toLongOrNull()
+                val homework = homeworkEditText.text.toString().takeIf { it.isNotEmpty() }
+                val grade = gradeEditText.text.toString().toIntOrNull()
+                if (subjectId != null) {
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        val subjectExists = viewModel.subjectExists(subjectId)
+                        if (subjectExists) {
+                            viewModel.addLesson(subjectId, dayOfWeek, homework, grade)
+                            viewModel.loadSubjectsWithAverageGrades()
+                        } else {
+                            Toast.makeText(
+                                context,
+                                "Предмет с ID $subjectId не существует",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                } else {
+                    Toast.makeText(context, "Введите действительный ID предмета", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
     }
 
-    private fun showAddSubjectDialog() {
-        val dialogView = layoutInflater.inflate(R.layout.dialog_add_subject, null)
-        val editText = dialogView.findViewById<EditText>(R.id.subjectNameEditText)
+    private fun showEditLessonDialog(lesson: Lesson) {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_add_lesson, null)
+        val subjectIdEditText = dialogView.findViewById<EditText>(R.id.subjectIdEditText)
+        val homeworkEditText = dialogView.findViewById<EditText>(R.id.homeworkEditText)
+        val gradeEditText = dialogView.findViewById<EditText>(R.id.gradeEditText)
+
+        subjectIdEditText.setText(lesson.subjectId.toString())
+        homeworkEditText.setText(lesson.homework ?: "")
+        gradeEditText.setText(lesson.grade?.toString() ?: "")
 
         AlertDialog.Builder(requireContext())
-            .setTitle(R.string.add_subject)
+            .setTitle(getString(R.string.redact_les))
             .setView(dialogView)
             .setPositiveButton(android.R.string.ok) { _, _ ->
-                val name = editText.text.toString()
-                if (name.isNotEmpty()) {
-                    lifecycleScope.launch {
-                        viewModel.addSubject(name, 1)
+                val subjectId = subjectIdEditText.text.toString().toLongOrNull()
+                val homework = homeworkEditText.text.toString().takeIf { it.isNotEmpty() }
+                val grade = gradeEditText.text.toString().toIntOrNull()
+                if (subjectId != null) {
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        val subjectExists = viewModel.subjectExists(subjectId)
+                        if (subjectExists) {
+                            viewModel.updateLesson(
+                                lesson.copy(
+                                    subjectId = subjectId,
+                                    homework = homework,
+                                    grade = grade
+                                )
+                            )
+                            viewModel.loadSubjectsWithAverageGrades()
+                        } else {
+                            Toast.makeText(
+                                context,
+                                "Предмет с ID $subjectId не существует",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
+                } else {
+                    Toast.makeText(context, "Введите действительный ID предмета", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
             .setNegativeButton(android.R.string.cancel, null)

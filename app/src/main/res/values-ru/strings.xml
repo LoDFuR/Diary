@@ -1,19 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ШкольноеРасписание</string>
-    <string name="weekly_schedule">Расписание на неделю</string>
+    <string name="app_name">Школьный дневник</string>
+    <string name="weekly_schedule">Еженедельное расписание</string>
     <string name="add_subject">Добавить предмет</string>
-    <string name="daily_details">Добавить Урок</string>
+    <string name="daily_details">Добавить урок</string>
     <string name="average_grade">Среднее: %.2f</string>
-    <string name="help_text">Помощь</string>
+    <string name="help_text">Здесь находится справочная информация</string>
     <string name="subject_name_hint">Введите название предмета</string>
-    <string name="homework_hint">Введите домашку</string>
+    <string name="homework_hint">Введите домашнее задание</string>
     <string name="grade_hint">Введите оценку (0-5)</string>
-    <string name="help_content">Хэлп контент</string>
-    <string name="help_title">Хелп загаловок</string>
+    <string name="help_title">Справка</string>
+    <string name="help_content">Это раздел справки приложения Школьный дневник. Используйте его для управления расписанием, добавления предметов и отслеживания уроков.</string>
     <string name="go_to_schedule">Расписание</string>
-    <string name="help">Помочь?</string>
-    <string name="view_subjects">Все предеметы</string>
-    <string name="day_name">День</string>
+    <string name="help">Справка?</string>
+    <string name="view_subjects">Посмотреть предметы</string>
+    <string name="day_name">Название дня</string>
     <string name="monday">Понедельник</string>
     <string name="tuesday">Вторник</string>
     <string name="wednesday">Среда</string>
@@ -21,4 +22,35 @@
     <string name="friday">Пятница</string>
     <string name="saturday">Суббота</string>
     <string name="sunday">Воскресенье</string>
+    <string name="add_lesson">Добавить урок</string>
+    <string name="grade_1_5">Оценка (1-5)</string>
+    <string name="grade_1_5_1">Оценка (1-5)</string>
+    <string name="id_subject">ID предмета</string>
+    <string name="homework">Домашнее задание</string>
+    <string name="help_000">Справка</string>
+    <string name="redact">Редактировать</string>
+    <string name="delete">Удалить</string>
+    <string name="delete_b">Удалить</string>
+    <string name="add_grade">Добавить оценку</string>
+    <string name="modify_b">Изменить</string>
+    <string name="redact_1">Редактировать</string>
+    <string name="delete_9">Удалить</string>
+    <string name="mod_sub">Изменить предмет</string>
+    <string name="avg_gr">Средние оценки: (пусто)</string>
+    <string name="lessons_list">Список уроков</string>
+    <string name="no_less">Нет уроков</string>
+    <string name="date">Дата (гггг-мм-дд)</string>
+    <string name="no_grade">Нет оценок</string>
+    <string name="avg_gr_is">Средние оценки</string>
+    <string name="id">ID предмета</string>
+    <string name="redact_les">Изменить урок</string>
+    <string name="sub_n">Предмет</string>
+    <!-- Добавленные строки для LessonAdapter -->
+    <string name="subject_label">Предмет: %s</string>
+    <string name="homework_label">Домашнее задание: %s</string>
+    <string name="grade_label">Оценка: %s</string>
+    <string name="unknown_subject">Неизвестно</string>
+    <string name="no_homework">Отсутствует</string>
+    <string name="edit_lesson">Редактировать</string>
+    <string name="delete_lesson">Удалить</string>
 </resources>

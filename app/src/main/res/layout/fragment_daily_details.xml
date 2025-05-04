@@ -1,44 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <TextView
+        android:id="@+id/averageGradesText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/weekly_schedule"
-        android:textSize="20sp" />
+        android:text="@string/avg_gr"
+        android:textSize="16sp"
+        android:paddingBottom="8dp" />
+
+    <TextView
+        android:id="@+id/emptyText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_less"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:contentDescription="Weekly schedule list" />
+        android:layout_weight="1" />
 
     <Button
-        android:id="@+id/addSubjectButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_subject" />
-
-    <Button
-        android:id="@+id/helpButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Help" />
-	<Button
         android:id="@+id/addLessonButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Lesson" />
-	<TextView
-        android:id="@+id/averageGradeText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-	<androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/lessonRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:text="@string/add_lesson" />
 </LinearLayout>

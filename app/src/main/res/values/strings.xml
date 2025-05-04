@@ -22,4 +22,35 @@
     <string name="friday">Friday</string>
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
+    <string name="add_lesson">Add lesson</string>
+    <string name="grade_1_5">Grade (1-5)</string>
+    <string name="grade_1_5_1">Grade (1-5)</string>
+    <string name="id_subject">ID Subject</string>
+    <string name="homework">HomeWork</string>
+    <string name="help_000">Help</string>
+    <string name="redact">Redact</string>
+    <string name="delete">Delete</string>
+    <string name="delete_b">Delete</string>
+    <string name="add_grade">Add Grade</string>
+    <string name="modify_b">Modify</string>
+    <string name="redact_1">Redact</string>
+    <string name="delete_9">Delete</string>
+    <string name="mod_sub">Modify Subject</string>
+    <string name="avg_gr">AVG Grades: (empty)</string>
+    <string name="lessons_list">Lessons list</string>
+    <string name="no_less">No lessons</string>
+    <string name="date">Date (yyyy-mm-dd)</string>
+    <string name="no_grade">No grades</string>
+    <string name="avg_gr_is">Average grades</string>
+    <string name="id">ID subject</string>
+    <string name="redact_les">Modify lesson</string>
+    <string name="sub_n">Subject</string>
+    <!-- Добавленные строки для LessonAdapter -->
+    <string name="subject_label">Subject: %s</string>
+    <string name="homework_label">Homework: %s</string>
+    <string name="grade_label">Grade: %s</string>
+    <string name="unknown_subject">Unknown</string>
+    <string name="no_homework">None</string>
+    <string name="edit_lesson">Edit</string>
+    <string name="delete_lesson">Delete</string>
 </resources>

@@ -17,8 +17,7 @@ class DayScheduleAdapter(private val lessons: List<Lesson>) :
     class LessonViewHolder(private val binding: ItemLessonBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(lesson: Lesson) {
-            // Настройте отображение данных урока
-            // binding.lessonName.text = lesson.name
+
         }
     }
 

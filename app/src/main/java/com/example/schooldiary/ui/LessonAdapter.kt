@@ -5,16 +5,43 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.schooldiary.R
 import com.example.schooldiary.data.database.Lesson
+import com.example.schooldiary.data.database.SubjectDao
 import com.example.schooldiary.databinding.ItemLessonBinding
+import kotlinx.coroutines.runBlocking
 
-class LessonAdapter : ListAdapter<Lesson, LessonAdapter.ViewHolder>(LessonDiffCallback()) {
+class LessonAdapter(
+    private val subjectDao: SubjectDao,
+    private val onEditLesson: (Lesson) -> Unit,
+    private val onDeleteLesson: (Lesson) -> Unit
+) : ListAdapter<Lesson, LessonAdapter.ViewHolder>(LessonDiffCallback()) {
 
-    class ViewHolder(private val binding: ItemLessonBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(
+        private val binding: ItemLessonBinding,
+        private val subjectDao: SubjectDao,
+        private val onEditLesson: (Lesson) -> Unit,
+        private val onDeleteLesson: (Lesson) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(lesson: Lesson) {
-            binding.homeworkText.text = lesson.homework ?: "No homework"
-            binding.gradeText.text = lesson.grade?.toString() ?: "No grade"
+            val context = binding.root.context
+            val subject = runBlocking {
+                subjectDao.getSubjectById(lesson.subjectId)
+            }
+            binding.subjectText.text = context.getString(
+                R.string.subject_label,
+                "${subject?.name ?: context.getString(R.string.unknown_subject)} (ID: ${lesson.subjectId})"
+            )
+            binding.homeworkText.text = context.getString(
+                R.string.homework_label,
+                lesson.homework ?: context.getString(R.string.no_homework)
+            )
+            binding.gradeText.text = context.getString(
+                R.string.grade_label,
+                lesson.grade?.toString() ?: context.getString(R.string.no_grade)
+            )
+            binding.editLessonButton.setOnClickListener { onEditLesson(lesson) }
+            binding.deleteLessonButton.setOnClickListener { onDeleteLesson(lesson) }
         }
     }
 
@@ -24,7 +51,7 @@ class LessonAdapter : ListAdapter<Lesson, LessonAdapter.ViewHolder>(LessonDiffCa
             parent,
             false
         )
-        return ViewHolder(binding)
+        return ViewHolder(binding, subjectDao, onEditLesson, onDeleteLesson)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

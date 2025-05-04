@@ -16,9 +16,10 @@ import androidx.room.PrimaryKey
     ]
 )
 data class Lesson(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val subjectId: Long, // Changed from Int to Long
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0,
+    val subjectId: Long,
     val dayOfWeek: Int,
-    val homework: String?,
-    val grade: Int?
+    val homework: String? = null,
+    val grade: Int? = null
 )
